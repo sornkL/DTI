@@ -1,10 +1,11 @@
 import pymysql
 
+from typing import *
 
 from Settings import *
 
 
-class SelectTool:
+class ConnectionTool:
     def __init__(self):
         self._db = None
         self._cursor = None
@@ -24,7 +25,7 @@ class SelectTool:
 
         return self._cursor.fetchall()
 
-    def select_one_result(self, sql: str) -> None:
+    def select_one_result(self, sql: str) -> Any:
         try:
             self._connect_database()
             self._cursor.execute(sql)
@@ -35,12 +36,18 @@ class SelectTool:
 
         return self._cursor.fetchone()
 
+    def insert(self, sql: str) -> None:
+        pass
+
+    def update(self, sql: str) -> None:
+        pass
+
 
 if __name__ == '__main__':
-    selectTool = SelectTool()
+    connectionTool = ConnectionTool()
 
     sqlForTestOne = "select count(*) from tblBindingDemo"
     sqlForTestAll = "select * from tblTest"
 
-    print(selectTool.select_one_result(sqlForTestOne))
-    print(selectTool.select(sqlForTestAll))
+    print(connectionTool.select_one_result(sqlForTestOne))
+    print(connectionTool.select(sqlForTestAll))
